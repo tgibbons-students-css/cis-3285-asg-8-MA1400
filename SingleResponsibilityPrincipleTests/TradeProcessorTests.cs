@@ -47,36 +47,7 @@ namespace SingleResponsibilityPrinciple.Tests
             int countAfter = CountDbRecords();
             Assert.AreEqual(countBefore + 4, countAfter);
         }
-        // this test is to throw let the user know if the databse is opening correctly or not when switching computers.
-        [TestMethod()]
-        public void connection()
-        {
-            //Arrange
-            connection.Open();
-            //Act
-            if (connection.Open == "")
-            {
-                connection.Open(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\malwan1\source\repos\cis-3285-asg-8-MA1400\tradedatabase.mdf;Integrated Security=True;Connect Timeout=30");
-            }
-            // Assert
-            Assert.Fail();
-        }
-        // this test will see if the trades are being read, if not it lets the user know that there is an error.
-        [TestMethod()]
-        public void readtrades()
-        {
-            //Arrange
-            var stream = new stream("");
-            var tradeData = new List<string>();
-            using (var reader = new StreamReader(stream)) ;
-            //Act
-            string line;
-            while ((line = reader.ReadLine()) = null) ;
-            //Assert
-            Assert.Fail();
-        }
-       
-
+        
         [TestMethod()]
     public void TestBadFile()
     {
