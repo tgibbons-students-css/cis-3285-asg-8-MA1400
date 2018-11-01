@@ -47,7 +47,7 @@ namespace SingleResponsibilityPrinciple.Tests
             int countAfter = CountDbRecords();
             Assert.AreEqual(countBefore + 4, countAfter);
         }
-        
+        //As a user, I would like to make sure no "bad" trades are accepted
         [TestMethod()]
     public void TestBadFile()
     {
@@ -63,20 +63,35 @@ namespace SingleResponsibilityPrinciple.Tests
         int countAfter = CountDbRecords();
         Assert.AreEqual(countBefore, countAfter);
       }
+        // As a user, I would like to make sure no negative trade amounts are accepted
         [TestMethod()]
         public void TestNegative()
         {
             //Arrange
             var tradeStram = Assembly.GetExecutingAssembly().GetManifestResourceStream("SingleResponsibilityPrincipleTests.negativetrades.txt");
             var TradeProcessor = new TradeProcessor();
+            int countBefore = CountDbRecords();
             //Act
 
-            int countBefore = CountDbRecords();
             TradeProcessor.ProcessTrades(tradeStram);
+            int countAfter = CountDbRecords();
 
             //Assert
-            int countAfter = CountDbRecords();
-            Assert.AreEqual(countBefore, countAfter);
+            Assert.AreEqual(countBefore - countAfter, 2);
+        }
+        [TestMethod]
+        //Error checking to see if the file you are working on is empty or not
+        public void EmptyTestFile()
+        {
+            //Arrange
+            var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SingleResponsibilityPrincipleTests.tradesEmpty.txt");
+            var tradeProcessor = new TradeProcessor();
+
+            //Act
+            tradeProcessor.ProcessTrades(tradeStream);
+
+            //Assert
+
         }
     }
 
